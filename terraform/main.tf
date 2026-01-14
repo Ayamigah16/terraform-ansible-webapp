@@ -98,6 +98,7 @@ module "compute" {
   instance_name        = "${var.project_name}-ec2"
   instance_type        = var.instance_type
   instance_role        = "web"
+  environment          = "web_dev"
   key_pair_name        = module.keys.key_pair_name
   security_group_ids   = [module.networking.security_group_id]
   

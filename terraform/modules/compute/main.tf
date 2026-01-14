@@ -43,8 +43,9 @@ resource "aws_instance" "web_server" {
   tags = merge(
     var.common_tags,
     {
-      Name = var.instance_name
-      Role = var.instance_role
+      Name        = var.instance_name
+      Role        = var.instance_role
+      Environment = var.environment
     }
   )
 }

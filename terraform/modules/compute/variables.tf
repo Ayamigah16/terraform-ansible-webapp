@@ -20,6 +20,12 @@ variable "instance_role" {
   default     = "web"
 }
 
+variable "environment" {
+  description = "Environment tag for the instance"
+  type        = string
+  default     = "web_dev"
+}
+
 variable "key_pair_name" {
   description = "Name of the key pair to use"
   type        = string
