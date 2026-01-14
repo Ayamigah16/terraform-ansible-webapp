@@ -10,6 +10,61 @@ variable "project_name" {
   default     = "terraform-ansible-webapp"
 }
 
+variable "environment" {
+  description = "Environment name (dev, staging, prod)"
+  type        = string
+  default     = "dev"
+}
+
+variable "managed_by" {
+  description = "Name of the person or team managing the infrastructure"
+  type        = string
+  default     = "Abraham Ayamigah"
+}
+
+# VPC Configuration
+variable "vpc_cidr" {
+  description = "CIDR block for the VPC"
+  type        = string
+  default     = "10.0.0.0/16"
+}
+
+variable "public_subnet_cidrs" {
+  description = "List of CIDR blocks for public subnets"
+  type        = list(string)
+  default     = ["10.0.1.0/24", "10.0.2.0/24"]
+}
+
+variable "private_subnet_cidrs" {
+  description = "List of CIDR blocks for private subnets"
+  type        = list(string)
+  default     = ["10.0.10.0/24", "10.0.11.0/24"]
+}
+
+variable "vpc_azs_count" {
+  description = "Number of availability zones to use"
+  type        = number
+  default     = 2
+}
+
+variable "enable_nat_gateway" {
+  description = "Enable NAT Gateway for private subnets"
+  type        = bool
+  default     = false
+}
+
+variable "single_nat_gateway" {
+  description = "Use a single NAT Gateway for all private subnets (cost optimization)"
+  type        = bool
+  default     = true
+}
+
+variable "enable_vpc_flow_logs" {
+  description = "Enable VPC Flow Logs for network monitoring"
+  type        = bool
+  default     = false
+}
+
 variable "instance_type" {
   description = "EC2 instance type"
   type        = string
@@ -20,4 +75,58 @@ variable "key_name_prefix" {
   description = "Prefix for the EC2 key pair name"
   type        = string
   default     = "terraform-ansible-webapp-key"
+}
+
+variable "ssh_user" {
+  description = "SSH user for EC2 instances"
+  type        = string
+  default     = "ec2-user"
+}
+
+variable "ssh_cidr_blocks" {
+  description = "CIDR blocks allowed for SSH access"
+  type        = list(string)
+  default     = ["0.0.0.0/0"]
+}
+
+variable "http_cidr_blocks" {
+  description = "CIDR blocks allowed for HTTP access"
+  type        = list(string)
+  default     = ["0.0.0.0/0"]
+}
+
+variable "https_cidr_blocks" {
+  description = "CIDR blocks allowed for HTTPS access"
+  type        = list(string)
+  default     = ["0.0.0.0/0"]
+}
+
+variable "enable_https" {
+  description = "Enable HTTPS security group rule"
+  type        = bool
+  default     = false
+}
+
+variable "enable_detailed_monitoring" {
+  description = "Enable detailed CloudWatch monitoring"
+  type        = bool
+  default     = false
+}
+
+variable "root_volume_size" {
+  description = "Size of root volume in GB"
+  type        = number
+  default     = 8
+}
+
+variable "root_volume_type" {
+  description = "Type of root volume (gp2, gp3, io1, io2)"
+  type        = string
+  default     = "gp3"
+}
+
+variable "enable_ebs_encryption" {
+  description = "Enable EBS volume encryption"
+  type        = bool
+  default     = true
 }
