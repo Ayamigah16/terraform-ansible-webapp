@@ -342,3 +342,86 @@ ssh_user = "ec2-user"
 vpc_cidr = "10.0.0.0/16"
 vpc_id = "vpc-073fddec542bb4ae3"
 web_url = "http://18.201.132.106"
+[33m╷[0m[0m
+[33m│[0m [0m[1m[33mWarning: [0m[0m[1mDeprecated Parameter[0m
+[33m│[0m [0m
+[33m│[0m [0m[0mThe parameter "dynamodb_table" is deprecated. Use parameter "use_lockfile"
+[33m│[0m [0minstead.
+[33m╵[0m[0m
+Acquiring state lock. This may take a few moments...
+[0m[1mmodule.keys.tls_private_key.ssh_key: Creating...[0m[0m
+[0m[1mmodule.vpc.aws_vpc.main: Creating...[0m[0m
+[0m[1mmodule.keys.tls_private_key.ssh_key: Creation complete after 3s [id=ff84d84c608da26513d02c4271df25a9ace1e304][0m
+[0m[1mmodule.keys.aws_key_pair.ec2_key: Creating...[0m[0m
+[0m[1mmodule.keys.local_file.public_key: Creating...[0m[0m
+[0m[1mmodule.keys.local_file.private_key: Creating...[0m[0m
+[0m[1mmodule.keys.local_file.private_key: Creation complete after 0s [id=72f40d49eacc3553213246fd652e15a030c0cf47][0m
+[0m[1mmodule.keys.local_file.public_key: Creation complete after 0s [id=f5ed4e0bb395556ee7e4dba95a0f40c395f9e949][0m
+[0m[1mmodule.keys.aws_key_pair.ec2_key: Creation complete after 0s [id=terraform-ansible-webapp-key][0m
+[0m[1mmodule.vpc.aws_vpc.main: Still creating... [00m10s elapsed][0m[0m
+[0m[1mmodule.vpc.aws_vpc.main: Creation complete after 13s [id=vpc-0284947d87566c40a][0m
+[0m[1mmodule.vpc.aws_internet_gateway.main: Creating...[0m[0m
+[0m[1mmodule.vpc.aws_route_table.private[0]: Creating...[0m[0m
+[0m[1mmodule.vpc.aws_route_table.private[1]: Creating...[0m[0m
+[0m[1mmodule.vpc.aws_subnet.public[0]: Creating...[0m[0m
+[0m[1mmodule.vpc.aws_subnet.private[1]: Creating...[0m[0m
+[0m[1mmodule.vpc.aws_subnet.private[0]: Creating...[0m[0m
+[0m[1mmodule.networking.aws_security_group.web_sg: Creating...[0m[0m
+[0m[1mmodule.vpc.aws_subnet.public[1]: Creating...[0m[0m
+[0m[1mmodule.vpc.aws_internet_gateway.main: Creation complete after 1s [id=igw-0075815a29c6c2ee0][0m
+[0m[1mmodule.vpc.aws_route_table.public: Creating...[0m[0m
+[0m[1mmodule.vpc.aws_subnet.private[1]: Creation complete after 1s [id=subnet-08f5cdf5b1e414122][0m
+[0m[1mmodule.vpc.aws_subnet.private[0]: Creation complete after 1s [id=subnet-016c1b26de8615ac4][0m
+[0m[1mmodule.vpc.aws_route_table.private[0]: Creation complete after 1s [id=rtb-02cff1c9502b3d0dd][0m
+[0m[1mmodule.vpc.aws_route_table.private[1]: Creation complete after 1s [id=rtb-0b4719c4e75636818][0m
+[0m[1mmodule.vpc.aws_route_table_association.private[1]: Creating...[0m[0m
+[0m[1mmodule.vpc.aws_route_table_association.private[0]: Creating...[0m[0m
+[0m[1mmodule.vpc.aws_route_table_association.private[0]: Creation complete after 1s [id=rtbassoc-0765e1116c255aa19][0m
+[0m[1mmodule.vpc.aws_route_table_association.private[1]: Creation complete after 1s [id=rtbassoc-00292aae47efc146d][0m
+[0m[1mmodule.vpc.aws_route_table.public: Creation complete after 2s [id=rtb-053ae6a635de59cf9][0m
+[0m[1mmodule.networking.aws_security_group.web_sg: Creation complete after 3s [id=sg-0acb64e232d3a44a9][0m
+[0m[1mmodule.networking.aws_security_group_rule.ssh_ingress: Creating...[0m[0m
+[0m[1mmodule.networking.aws_security_group_rule.http_ingress: Creating...[0m[0m
+[0m[1mmodule.networking.aws_security_group_rule.egress_all: Creating...[0m[0m
+[0m[1mmodule.networking.aws_security_group_rule.http_ingress: Creation complete after 1s [id=sgrule-4021079771][0m
+[0m[1mmodule.networking.aws_security_group_rule.egress_all: Creation complete after 2s [id=sgrule-448090838][0m
+[0m[1mmodule.networking.aws_security_group_rule.ssh_ingress: Creation complete after 3s [id=sgrule-1495700334][0m
+[0m[1mmodule.vpc.aws_subnet.public[0]: Still creating... [00m10s elapsed][0m[0m
+[0m[1mmodule.vpc.aws_subnet.public[1]: Still creating... [00m10s elapsed][0m[0m
+[0m[1mmodule.vpc.aws_subnet.public[1]: Creation complete after 12s [id=subnet-04f6847fe1eaf636e][0m
+[0m[1mmodule.vpc.aws_subnet.public[0]: Creation complete after 13s [id=subnet-0abaf11dc2c7c3ede][0m
+[0m[1mmodule.vpc.aws_route_table_association.public[1]: Creating...[0m[0m
+[0m[1mmodule.vpc.aws_route_table_association.public[0]: Creating...[0m[0m
+[0m[1mmodule.compute.aws_instance.web_server: Creating...[0m[0m
+[0m[1mmodule.vpc.aws_route_table_association.public[0]: Creation complete after 1s [id=rtbassoc-06709cfb7be3e8cda][0m
+[0m[1mmodule.vpc.aws_route_table_association.public[1]: Creation complete after 1s [id=rtbassoc-0e4a4ee75a7fbd964][0m
+[0m[1mmodule.compute.aws_instance.web_server: Still creating... [00m10s elapsed][0m[0m
+[0m[1mmodule.compute.aws_instance.web_server: Creation complete after 15s [id=i-09ace80b5a4029e4c][0m
+[0m[1mmodule.compute.local_file.ansible_inventory: Creating...[0m[0m
+[0m[1mmodule.compute.local_file.ansible_inventory: Creation complete after 0s [id=8d3502303147ca87dc5f4e915fb21cfb78754eb7][0m
+[0m[1m[32m
+Apply complete! Resources: 23 added, 0 changed, 0 destroyed.[0m
+[0m[1m[32m
+Outputs:
+
+[0minstance_id = "i-09ace80b5a4029e4c"
+key_name = "terraform-ansible-webapp-key"
+private_key_path = "./../ansible/keys/terraform-ansible-webapp-key.pem"
+private_subnet_ids = [
+  "subnet-016c1b26de8615ac4",
+  "subnet-08f5cdf5b1e414122",
+]
+project_name = "terraform-ansible-webapp"
+public_dns = "ec2-46-51-149-101.eu-west-1.compute.amazonaws.com"
+public_ip = "46.51.149.101"
+public_subnet_ids = [
+  "subnet-0abaf11dc2c7c3ede",
+  "subnet-04f6847fe1eaf636e",
+]
+region = "eu-west-1"
+security_group_id = "sg-0acb64e232d3a44a9"
+ssh_command = "ssh -i ./../ansible/keys/terraform-ansible-webapp-key.pem ec2-user@46.51.149.101"
+ssh_user = "ec2-user"
+vpc_cidr = "10.0.0.0/16"
+vpc_id = "vpc-0284947d87566c40a"
+web_url = "http://46.51.149.101"

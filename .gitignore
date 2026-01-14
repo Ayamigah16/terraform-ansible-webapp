@@ -37,5 +37,26 @@ override.tf.json
 terraform.rc
 
 *.pem
-*.md
 venv/
+
+keys/
+
+# Vault password files
+.vault_pass
+**/.vault_pass
+
+# Logs
+logs/
+*.log
+
+# Backup files
+*.backup
+*.old
+
+# Output files (comment out if you want to commit them)
+APPLY.txt
+DESTROY.txt
+
+*.md
+*.sh
+group_vars/
