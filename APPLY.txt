@@ -1,0 +1,344 @@
+[0m[1mmodule.keys.tls_private_key.ssh_key: Refreshing state... [id=d4e9c5e0f25af3cdf291d0f64c19d5d4718fa3f2][0m
+[0m[1mmodule.keys.local_file.public_key: Refreshing state... [id=f7890453a0fc4c6ca0585b93bdb6984a0e13d641][0m
+[0m[1mmodule.keys.local_file.private_key: Refreshing state... [id=a2682fdd659fd972f36dc8352cb3da8a6b5ef0e0][0m
+[0m[1mdata.aws_availability_zones.available: Reading...[0m[0m
+[0m[1mmodule.compute.data.aws_ami.amazon_linux_2: Reading...[0m[0m
+[0m[1mmodule.keys.aws_key_pair.ec2_key: Refreshing state... [id=terraform-ansible-webapp-key][0m
+[0m[1mmodule.vpc.aws_vpc.main: Refreshing state... [id=vpc-073fddec542bb4ae3][0m
+[0m[1mdata.aws_availability_zones.available: Read complete after 1s [id=eu-west-1][0m
+[0m[1mmodule.compute.data.aws_ami.amazon_linux_2: Read complete after 1s [id=ami-01652dfea70d0d9b9][0m
+[0m[1mmodule.vpc.aws_internet_gateway.main: Refreshing state... [id=igw-005869133ea402a9a][0m
+[0m[1mmodule.vpc.aws_route_table.private[0]: Refreshing state... [id=rtb-0ce33ca8672fcc1ed][0m
+[0m[1mmodule.vpc.aws_route_table.private[1]: Refreshing state... [id=rtb-0522d82034410e378][0m
+[0m[1mmodule.vpc.aws_subnet.private[0]: Refreshing state... [id=subnet-04285c8edc2e84548][0m
+[0m[1mmodule.vpc.aws_subnet.private[1]: Refreshing state... [id=subnet-00f2f96ec7410a803][0m
+[0m[1mmodule.vpc.aws_subnet.public[0]: Refreshing state... [id=subnet-0417c67ce09f71c56][0m
+[0m[1mmodule.vpc.aws_subnet.public[1]: Refreshing state... [id=subnet-0adf8572dfa386590][0m
+[0m[1mmodule.networking.aws_security_group.web_sg: Refreshing state... [id=sg-01614fd5f0404ba50][0m
+[0m[1mmodule.vpc.aws_route_table.public: Refreshing state... [id=rtb-0b139fdefaa9518fa][0m
+[0m[1mmodule.vpc.aws_route_table_association.private[1]: Refreshing state... [id=rtbassoc-096b6047f417796f1][0m
+[0m[1mmodule.vpc.aws_route_table_association.private[0]: Refreshing state... [id=rtbassoc-0a7263f25c5e850d4][0m
+[0m[1mmodule.networking.aws_security_group_rule.egress_all: Refreshing state... [id=sgrule-389616422][0m
+[0m[1mmodule.networking.aws_security_group_rule.ssh_ingress: Refreshing state... [id=sgrule-3587435003][0m
+[0m[1mmodule.networking.aws_security_group_rule.http_ingress: Refreshing state... [id=sgrule-1666823246][0m
+[0m[1mmodule.compute.aws_instance.web_server: Refreshing state... [id=i-0c9384d48268d8738][0m
+[0m[1mmodule.vpc.aws_route_table_association.public[1]: Refreshing state... [id=rtbassoc-094aa1afaef0735d2][0m
+[0m[1mmodule.vpc.aws_route_table_association.public[0]: Refreshing state... [id=rtbassoc-0b5288352aa372348][0m
+[0m[1mmodule.compute.local_file.ansible_inventory: Refreshing state... [id=d8991bfb7177c3c328b38f3254e867d2d3d0e309][0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [33m~[0m update in-place[0m
+
+Terraform will perform the following actions:
+
+[1m  # module.compute.aws_instance.web_server[0m will be updated in-place
+[0m  [33m~[0m[0m resource "aws_instance" "web_server" {
+        id                                   = "i-0c9384d48268d8738"
+      [33m~[0m[0m tags                                 = {
+          [31m-[0m[0m "CreatedAt"   = "2026-01-14T09:00:01Z"
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "Abraham Ayamigah"
+          [31m-[0m[0m "Name"        = "terraform-ansible-webapp-ec2"
+          [31m-[0m[0m "Project"     = "terraform-ansible-webapp"
+          [31m-[0m[0m "Role"        = "web"
+        } -> (known after apply)
+      [33m~[0m[0m tags_all                             = {
+          [31m-[0m[0m "CreatedAt"   = "2026-01-14T09:00:01Z"
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "Abraham Ayamigah"
+          [31m-[0m[0m "Name"        = "terraform-ansible-webapp-ec2"
+          [31m-[0m[0m "Project"     = "terraform-ansible-webapp"
+          [31m-[0m[0m "Role"        = "web"
+        } -> (known after apply)
+        [90m# (39 unchanged attributes hidden)[0m[0m
+
+        [90m# (8 unchanged blocks hidden)[0m[0m
+    }
+
+[1m  # module.keys.aws_key_pair.ec2_key[0m will be updated in-place
+[0m  [33m~[0m[0m resource "aws_key_pair" "ec2_key" {
+        id              = "terraform-ansible-webapp-key"
+      [33m~[0m[0m tags            = {
+          [31m-[0m[0m "CreatedAt"   = "2026-01-14T09:00:01Z"
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "Abraham Ayamigah"
+          [31m-[0m[0m "Name"        = "terraform-ansible-webapp-key"
+          [31m-[0m[0m "Project"     = "terraform-ansible-webapp"
+        } -> (known after apply)
+      [33m~[0m[0m tags_all        = {
+          [31m-[0m[0m "CreatedAt"   = "2026-01-14T09:00:01Z"
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "Abraham Ayamigah"
+          [31m-[0m[0m "Name"        = "terraform-ansible-webapp-key"
+          [31m-[0m[0m "Project"     = "terraform-ansible-webapp"
+        } -> (known after apply)
+        [90m# (7 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # module.networking.aws_security_group.web_sg[0m will be updated in-place
+[0m  [33m~[0m[0m resource "aws_security_group" "web_sg" {
+        id                     = "sg-01614fd5f0404ba50"
+        name                   = "terraform-ansible-webapp-sg"
+      [33m~[0m[0m tags                   = {
+          [31m-[0m[0m "CreatedAt"   = "2026-01-14T09:00:01Z"
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "Abraham Ayamigah"
+          [31m-[0m[0m "Name"        = "terraform-ansible-webapp-sg"
+          [31m-[0m[0m "Project"     = "terraform-ansible-webapp"
+        } -> (known after apply)
+      [33m~[0m[0m tags_all               = {
+          [31m-[0m[0m "CreatedAt"   = "2026-01-14T09:00:01Z"
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "Abraham Ayamigah"
+          [31m-[0m[0m "Name"        = "terraform-ansible-webapp-sg"
+          [31m-[0m[0m "Project"     = "terraform-ansible-webapp"
+        } -> (known after apply)
+        [90m# (8 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # module.vpc.aws_internet_gateway.main[0m will be updated in-place
+[0m  [33m~[0m[0m resource "aws_internet_gateway" "main" {
+        id       = "igw-005869133ea402a9a"
+      [33m~[0m[0m tags     = {
+          [31m-[0m[0m "CreatedAt"   = "2026-01-14T09:00:01Z"
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "Abraham Ayamigah"
+          [31m-[0m[0m "Name"        = "terraform-ansible-webapp-vpc-igw"
+          [31m-[0m[0m "Project"     = "terraform-ansible-webapp"
+        } -> (known after apply)
+      [33m~[0m[0m tags_all = {
+          [31m-[0m[0m "CreatedAt"   = "2026-01-14T09:00:01Z"
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "Abraham Ayamigah"
+          [31m-[0m[0m "Name"        = "terraform-ansible-webapp-vpc-igw"
+          [31m-[0m[0m "Project"     = "terraform-ansible-webapp"
+        } -> (known after apply)
+        [90m# (3 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # module.vpc.aws_route_table.private[0][0m will be updated in-place
+[0m  [33m~[0m[0m resource "aws_route_table" "private" {
+        id               = "rtb-0ce33ca8672fcc1ed"
+      [33m~[0m[0m tags             = {
+          [31m-[0m[0m "CreatedAt"   = "2026-01-14T09:00:01Z"
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "Abraham Ayamigah"
+          [31m-[0m[0m "Name"        = "terraform-ansible-webapp-vpc-private-rt-1"
+          [31m-[0m[0m "Project"     = "terraform-ansible-webapp"
+        } -> (known after apply)
+      [33m~[0m[0m tags_all         = {
+          [31m-[0m[0m "CreatedAt"   = "2026-01-14T09:00:01Z"
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "Abraham Ayamigah"
+          [31m-[0m[0m "Name"        = "terraform-ansible-webapp-vpc-private-rt-1"
+          [31m-[0m[0m "Project"     = "terraform-ansible-webapp"
+        } -> (known after apply)
+        [90m# (5 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # module.vpc.aws_route_table.private[1][0m will be updated in-place
+[0m  [33m~[0m[0m resource "aws_route_table" "private" {
+        id               = "rtb-0522d82034410e378"
+      [33m~[0m[0m tags             = {
+          [31m-[0m[0m "CreatedAt"   = "2026-01-14T09:00:01Z"
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "Abraham Ayamigah"
+          [31m-[0m[0m "Name"        = "terraform-ansible-webapp-vpc-private-rt-2"
+          [31m-[0m[0m "Project"     = "terraform-ansible-webapp"
+        } -> (known after apply)
+      [33m~[0m[0m tags_all         = {
+          [31m-[0m[0m "CreatedAt"   = "2026-01-14T09:00:01Z"
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "Abraham Ayamigah"
+          [31m-[0m[0m "Name"        = "terraform-ansible-webapp-vpc-private-rt-2"
+          [31m-[0m[0m "Project"     = "terraform-ansible-webapp"
+        } -> (known after apply)
+        [90m# (5 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # module.vpc.aws_route_table.public[0m will be updated in-place
+[0m  [33m~[0m[0m resource "aws_route_table" "public" {
+        id               = "rtb-0b139fdefaa9518fa"
+      [33m~[0m[0m tags             = {
+          [31m-[0m[0m "CreatedAt"   = "2026-01-14T09:00:01Z"
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "Abraham Ayamigah"
+          [31m-[0m[0m "Name"        = "terraform-ansible-webapp-vpc-public-rt"
+          [31m-[0m[0m "Project"     = "terraform-ansible-webapp"
+        } -> (known after apply)
+      [33m~[0m[0m tags_all         = {
+          [31m-[0m[0m "CreatedAt"   = "2026-01-14T09:00:01Z"
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "Abraham Ayamigah"
+          [31m-[0m[0m "Name"        = "terraform-ansible-webapp-vpc-public-rt"
+          [31m-[0m[0m "Project"     = "terraform-ansible-webapp"
+        } -> (known after apply)
+        [90m# (5 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # module.vpc.aws_subnet.private[0][0m will be updated in-place
+[0m  [33m~[0m[0m resource "aws_subnet" "private" {
+        id                                             = "subnet-04285c8edc2e84548"
+      [33m~[0m[0m tags                                           = {
+          [31m-[0m[0m "CreatedAt"   = "2026-01-14T09:00:01Z"
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "Abraham Ayamigah"
+          [31m-[0m[0m "Name"        = "terraform-ansible-webapp-vpc-private-eu-west-1a"
+          [31m-[0m[0m "Project"     = "terraform-ansible-webapp"
+          [31m-[0m[0m "Type"        = "private"
+        } -> (known after apply)
+      [33m~[0m[0m tags_all                                       = {
+          [31m-[0m[0m "CreatedAt"   = "2026-01-14T09:00:01Z"
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "Abraham Ayamigah"
+          [31m-[0m[0m "Name"        = "terraform-ansible-webapp-vpc-private-eu-west-1a"
+          [31m-[0m[0m "Project"     = "terraform-ansible-webapp"
+          [31m-[0m[0m "Type"        = "private"
+        } -> (known after apply)
+        [90m# (19 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # module.vpc.aws_subnet.private[1][0m will be updated in-place
+[0m  [33m~[0m[0m resource "aws_subnet" "private" {
+        id                                             = "subnet-00f2f96ec7410a803"
+      [33m~[0m[0m tags                                           = {
+          [31m-[0m[0m "CreatedAt"   = "2026-01-14T09:00:01Z"
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "Abraham Ayamigah"
+          [31m-[0m[0m "Name"        = "terraform-ansible-webapp-vpc-private-eu-west-1b"
+          [31m-[0m[0m "Project"     = "terraform-ansible-webapp"
+          [31m-[0m[0m "Type"        = "private"
+        } -> (known after apply)
+      [33m~[0m[0m tags_all                                       = {
+          [31m-[0m[0m "CreatedAt"   = "2026-01-14T09:00:01Z"
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "Abraham Ayamigah"
+          [31m-[0m[0m "Name"        = "terraform-ansible-webapp-vpc-private-eu-west-1b"
+          [31m-[0m[0m "Project"     = "terraform-ansible-webapp"
+          [31m-[0m[0m "Type"        = "private"
+        } -> (known after apply)
+        [90m# (19 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # module.vpc.aws_subnet.public[0][0m will be updated in-place
+[0m  [33m~[0m[0m resource "aws_subnet" "public" {
+        id                                             = "subnet-0417c67ce09f71c56"
+      [33m~[0m[0m tags                                           = {
+          [31m-[0m[0m "CreatedAt"   = "2026-01-14T09:00:01Z"
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "Abraham Ayamigah"
+          [31m-[0m[0m "Name"        = "terraform-ansible-webapp-vpc-public-eu-west-1a"
+          [31m-[0m[0m "Project"     = "terraform-ansible-webapp"
+          [31m-[0m[0m "Type"        = "public"
+        } -> (known after apply)
+      [33m~[0m[0m tags_all                                       = {
+          [31m-[0m[0m "CreatedAt"   = "2026-01-14T09:00:01Z"
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "Abraham Ayamigah"
+          [31m-[0m[0m "Name"        = "terraform-ansible-webapp-vpc-public-eu-west-1a"
+          [31m-[0m[0m "Project"     = "terraform-ansible-webapp"
+          [31m-[0m[0m "Type"        = "public"
+        } -> (known after apply)
+        [90m# (19 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # module.vpc.aws_subnet.public[1][0m will be updated in-place
+[0m  [33m~[0m[0m resource "aws_subnet" "public" {
+        id                                             = "subnet-0adf8572dfa386590"
+      [33m~[0m[0m tags                                           = {
+          [31m-[0m[0m "CreatedAt"   = "2026-01-14T09:00:01Z"
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "Abraham Ayamigah"
+          [31m-[0m[0m "Name"        = "terraform-ansible-webapp-vpc-public-eu-west-1b"
+          [31m-[0m[0m "Project"     = "terraform-ansible-webapp"
+          [31m-[0m[0m "Type"        = "public"
+        } -> (known after apply)
+      [33m~[0m[0m tags_all                                       = {
+          [31m-[0m[0m "CreatedAt"   = "2026-01-14T09:00:01Z"
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "Abraham Ayamigah"
+          [31m-[0m[0m "Name"        = "terraform-ansible-webapp-vpc-public-eu-west-1b"
+          [31m-[0m[0m "Project"     = "terraform-ansible-webapp"
+          [31m-[0m[0m "Type"        = "public"
+        } -> (known after apply)
+        [90m# (19 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # module.vpc.aws_vpc.main[0m will be updated in-place
+[0m  [33m~[0m[0m resource "aws_vpc" "main" {
+        id                                   = "vpc-073fddec542bb4ae3"
+      [33m~[0m[0m tags                                 = {
+          [31m-[0m[0m "CreatedAt"   = "2026-01-14T09:00:01Z"
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "Abraham Ayamigah"
+          [31m-[0m[0m "Name"        = "terraform-ansible-webapp-vpc"
+          [31m-[0m[0m "Project"     = "terraform-ansible-webapp"
+        } -> (known after apply)
+      [33m~[0m[0m tags_all                             = {
+          [31m-[0m[0m "CreatedAt"   = "2026-01-14T09:00:01Z"
+          [31m-[0m[0m "Environment" = "dev"
+          [31m-[0m[0m "ManagedBy"   = "Abraham Ayamigah"
+          [31m-[0m[0m "Name"        = "terraform-ansible-webapp-vpc"
+          [31m-[0m[0m "Project"     = "terraform-ansible-webapp"
+        } -> (known after apply)
+        [90m# (18 unchanged attributes hidden)[0m[0m
+    }
+
+[1mPlan:[0m [0m0 to add, 12 to change, 0 to destroy.
+[0m[1m
+Do you want to perform these actions?[0m
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  [1mEnter a value:[0m [0m
+[0m[1mmodule.keys.aws_key_pair.ec2_key: Modifying... [id=terraform-ansible-webapp-key][0m[0m
+[0m[1mmodule.vpc.aws_vpc.main: Modifying... [id=vpc-073fddec542bb4ae3][0m[0m
+[0m[1mmodule.keys.aws_key_pair.ec2_key: Modifications complete after 1s [id=terraform-ansible-webapp-key][0m
+[0m[1mmodule.vpc.aws_vpc.main: Modifications complete after 2s [id=vpc-073fddec542bb4ae3][0m
+[0m[1mmodule.vpc.aws_internet_gateway.main: Modifying... [id=igw-005869133ea402a9a][0m[0m
+[0m[1mmodule.vpc.aws_subnet.private[1]: Modifying... [id=subnet-00f2f96ec7410a803][0m[0m
+[0m[1mmodule.vpc.aws_subnet.public[0]: Modifying... [id=subnet-0417c67ce09f71c56][0m[0m
+[0m[1mmodule.vpc.aws_route_table.private[0]: Modifying... [id=rtb-0ce33ca8672fcc1ed][0m[0m
+[0m[1mmodule.vpc.aws_route_table.private[1]: Modifying... [id=rtb-0522d82034410e378][0m[0m
+[0m[1mmodule.vpc.aws_subnet.public[1]: Modifying... [id=subnet-0adf8572dfa386590][0m[0m
+[0m[1mmodule.vpc.aws_subnet.private[0]: Modifying... [id=subnet-04285c8edc2e84548][0m[0m
+[0m[1mmodule.networking.aws_security_group.web_sg: Modifying... [id=sg-01614fd5f0404ba50][0m[0m
+[0m[1mmodule.vpc.aws_internet_gateway.main: Modifications complete after 0s [id=igw-005869133ea402a9a][0m
+[0m[1mmodule.vpc.aws_subnet.private[1]: Modifications complete after 0s [id=subnet-00f2f96ec7410a803][0m
+[0m[1mmodule.vpc.aws_route_table.public: Modifying... [id=rtb-0b139fdefaa9518fa][0m[0m
+[0m[1mmodule.vpc.aws_route_table.private[1]: Modifications complete after 0s [id=rtb-0522d82034410e378][0m
+[0m[1mmodule.vpc.aws_subnet.private[0]: Modifications complete after 1s [id=subnet-04285c8edc2e84548][0m
+[0m[1mmodule.vpc.aws_subnet.public[1]: Modifications complete after 1s [id=subnet-0adf8572dfa386590][0m
+[0m[1mmodule.vpc.aws_subnet.public[0]: Modifications complete after 1s [id=subnet-0417c67ce09f71c56][0m
+[0m[1mmodule.networking.aws_security_group.web_sg: Modifications complete after 1s [id=sg-01614fd5f0404ba50][0m
+[0m[1mmodule.vpc.aws_route_table.private[0]: Modifications complete after 1s [id=rtb-0ce33ca8672fcc1ed][0m
+[0m[1mmodule.compute.aws_instance.web_server: Modifying... [id=i-0c9384d48268d8738][0m[0m
+[0m[1mmodule.vpc.aws_route_table.public: Modifications complete after 1s [id=rtb-0b139fdefaa9518fa][0m
+[0m[1mmodule.compute.aws_instance.web_server: Modifications complete after 3s [id=i-0c9384d48268d8738][0m
+[0m[1m[32m
+Apply complete! Resources: 0 added, 12 changed, 0 destroyed.[0m
+[0m[1m[32m
+Outputs:
+
+[0minstance_id = "i-0c9384d48268d8738"
+key_name = "terraform-ansible-webapp-key"
+private_key_path = "./../ansible/keys/terraform-ansible-webapp-key.pem"
+private_subnet_ids = [
+  "subnet-04285c8edc2e84548",
+  "subnet-00f2f96ec7410a803",
+]
+project_name = "terraform-ansible-webapp"
+public_dns = "ec2-18-201-132-106.eu-west-1.compute.amazonaws.com"
+public_ip = "18.201.132.106"
+public_subnet_ids = [
+  "subnet-0417c67ce09f71c56",
+  "subnet-0adf8572dfa386590",
+]
+region = "eu-west-1"
+security_group_id = "sg-01614fd5f0404ba50"
+ssh_command = "ssh -i ./../ansible/keys/terraform-ansible-webapp-key.pem ec2-user@18.201.132.106"
+ssh_user = "ec2-user"
+vpc_cidr = "10.0.0.0/16"
+vpc_id = "vpc-073fddec542bb4ae3"
+web_url = "http://18.201.132.106"
