@@ -2,14 +2,16 @@
 plugin: aws_ec2
 
 # AWS region(s) to query
+# IMPORTANT: Must match terraform/variables.tf aws_region default or your terraform.tfvars
 regions:
 - eu-west-1
 
 # Filter instances by tags
+# IMPORTANT: Values must match terraform tags (Project and Environment from terraform/variables.tf)
 filters:
   instance-state-name: running
   "tag:Project": terraform-ansible-webapp
-  "tag:Environment": web_dev
+  "tag:Environment": dev
 
 # Keyed groups - organize hosts by tags
 keyed_groups:
@@ -33,8 +35,12 @@ compose:
   ansible_host: public_ip_address
   ansible_user: "'ec2-user'"
   instance_name: tags.Name
+  instance_role: tags.Role
   environment: tags.Environment
   project: tags.Project
+  managed_by: tags.ManagedBy
+  private_ip: private_ip_address
+  public_ip: public_ip_address
 
 # Hostnames - how to identify instances
 hostnames:
