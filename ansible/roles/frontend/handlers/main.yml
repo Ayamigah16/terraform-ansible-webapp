@@ -1,0 +1,5 @@
+---
+- name: Restart frontend service
+  shell: pm2 restart frontend || pm2 start npm --name frontend -- start
+  args:
+    chdir: "{{ app_dir }}"
