@@ -155,3 +155,7 @@
 - name: Display backend URL
   debug:
     msg: "Backend API is running at http://{{ inventory_hostname }}:{{ backend_port }}"
+
+- name: Configure Nginx reverse proxy
+  include_tasks: nginx.yml
+  tags: nginx

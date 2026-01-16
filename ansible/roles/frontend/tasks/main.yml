@@ -151,3 +151,7 @@
 - name: Display frontend URL
   debug:
     msg: "Frontend application is running at http://{{ inventory_hostname }}:{{ frontend_port }}"
+
+- name: Configure Nginx reverse proxy
+  include_tasks: nginx.yml
+  tags: nginx
