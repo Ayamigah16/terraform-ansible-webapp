@@ -57,6 +57,15 @@ logs/
 APPLY.txt
 DESTROY.txt
 
+# Ansible output files
+terraform-outputs.json
+inventory-*.ini
+
+# Environment files with secrets
+**/vars/fullstack.yml
+
+app
 *.md
 *.sh
-group_vars/
+*/group_vars/
+./app/*
