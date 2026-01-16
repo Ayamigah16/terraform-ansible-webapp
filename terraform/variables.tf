@@ -130,3 +130,71 @@ variable "enable_ebs_encryption" {
   type        = bool
   default     = true
 }
+
+# RDS Database Configuration
+variable "db_name" {
+  description = "Name of the database to create"
+  type        = string
+  default     = "appdb"
+}
+
+variable "db_username" {
+  description = "Master username for the database"
+  type        = string
+  default     = "dbadmin"
+  sensitive   = true
+}
+
+variable "db_password" {
+  description = "Master password for the database"
+  type        = string
+  sensitive   = true
+}
+
+variable "db_instance_class" {
+  description = "RDS instance class"
+  type        = string
+  default     = "db.t3.micro"
+}
+
+variable "db_allocated_storage" {
+  description = "Allocated storage in GB"
+  type        = number
+  default     = 20
+}
+
+variable "db_multi_az" {
+  description = "Enable multi-AZ deployment for high availability"
+  type        = bool
+  default     = false
+}
+
+variable "db_backup_retention_period" {
+  description = "Number of days to retain automated backups"
+  type        = number
+  default     = 7
+}
+
+variable "db_backup_window" {
+  description = "Preferred backup window (UTC)"
+  type        = string
+  default     = "03:00-04:00"
+}
+
+variable "db_maintenance_window" {
+  description = "Preferred maintenance window (UTC)"
+  type        = string
+  default     = "sun:04:00-sun:05:00"
+}
+
+variable "enable_rds_encryption" {
+  description = "Enable RDS storage encryption"
+  type        = bool
+  default     = true
+}
+
+variable "enable_rds_monitoring" {
+  description = "Enable enhanced RDS monitoring"
+  type        = bool
+  default     = false
+}

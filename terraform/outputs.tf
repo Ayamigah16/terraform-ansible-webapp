@@ -75,3 +75,68 @@ output "web_url" {
   description = "URL to access the web application"
   value       = "http://${module.compute.instance_public_ip}"
 }
+
+# Frontend Outputs
+output "frontend_public_ip" {
+  description = "Public IP address of the frontend server"
+  value       = module.frontend.instance_public_ip
+}
+
+output "frontend_instance_id" {
+  description = "ID of the frontend EC2 instance"
+  value       = module.frontend.instance_id
+}
+
+output "frontend_url" {
+  description = "URL to access the Next.js frontend"
+  value       = "http://${module.frontend.instance_public_ip}:3000"
+}
+
+# Backend Outputs
+output "backend_public_ip" {
+  description = "Public IP address of the backend server"
+  value       = module.backend.instance_public_ip
+}
+
+output "backend_private_ip" {
+  description = "Private IP address of the backend server"
+  value       = module.backend.instance_private_ip
+}
+
+output "backend_instance_id" {
+  description = "ID of the backend EC2 instance"
+  value       = module.backend.instance_id
+}
+
+output "backend_api_url" {
+  description = "URL to access the NestJS API"
+  value       = "http://${module.backend.instance_public_ip}:3001"
+}
+
+# Database Outputs
+output "database_endpoint" {
+  description = "RDS instance endpoint"
+  value       = module.database.db_instance_endpoint
+  sensitive   = true
+}
+
+output "database_address" {
+  description = "RDS instance address"
+  value       = module.database.db_instance_address
+}
+
+output "database_port" {
+  description = "RDS instance port"
+  value       = module.database.db_instance_port
+}
+
+output "database_name" {
+  description = "Name of the database"
+  value       = module.database.db_name
+}
+
+output "database_connection_string" {
+  description = "PostgreSQL connection string (without password)"
+  value       = "postgresql://${module.database.db_username}@${module.database.db_instance_address}:${module.database.db_instance_port}/${module.database.db_name}"
+  sensitive   = true
+}

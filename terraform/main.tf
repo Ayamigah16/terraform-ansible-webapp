@@ -114,3 +114,78 @@ module "compute" {
 
   common_tags = local.common_tags
 }
+
+# Module: Frontend Instance (Next.js)
+module "frontend" {
+  source = "./modules/compute"
+
+  subnet_id            = module.vpc.public_subnet_ids[0]
+  instance_name        = "${var.project_name}-frontend"
+  instance_type        = var.instance_type
+  instance_role        = "frontend"
+  environment          = var.environment
+  key_pair_name        = module.keys.key_pair_name
+  security_group_ids   = [module.networking.frontend_security_group_id]
+  
+  associate_public_ip  = true
+  enable_monitoring    = var.enable_detailed_monitoring
+  root_volume_size     = var.root_volume_size
+  root_volume_type     = var.root_volume_type
+  enable_encryption    = var.enable_ebs_encryption
+  
+  ssh_user             = var.ssh_user
+  private_key_path     = module.keys.private_key_path
+  inventory_file_path  = "${path.module}/../ansible/inventory-frontend.ini"
+
+  common_tags = local.common_tags
+}
+
+# Module: Backend Instance (NestJS)
+module "backend" {
+  source = "./modules/compute"
+
+  subnet_id            = module.vpc.public_subnet_ids[1]
+  instance_name        = "${var.project_name}-backend"
+  instance_type        = var.instance_type
+  instance_role        = "backend"
+  environment          = var.environment
+  key_pair_name        = module.keys.key_pair_name
+  security_group_ids   = [module.networking.backend_security_group_id]
+  
+  associate_public_ip  = true
+  enable_monitoring    = var.enable_detailed_monitoring
+  root_volume_size     = var.root_volume_size
+  root_volume_type     = var.root_volume_type
+  enable_encryption    = var.enable_ebs_encryption
+  
+  ssh_user             = var.ssh_user
+  private_key_path     = module.keys.private_key_path
+  inventory_file_path  = "${path.module}/../ansible/inventory-backend.ini"
+
+  common_tags = local.common_tags
+}
+
+# Module: RDS Database (PostgreSQL)
+module "database" {
+  source = "./modules/rds"
+
+  db_identifier          = "${var.project_name}-db"
+  db_name                = var.db_name
+  master_username        = var.db_username
+  master_password        = var.db_password
+  instance_class         = var.db_instance_class
+  allocated_storage      = var.db_allocated_storage
+  
+  subnet_ids             = module.vpc.private_subnet_ids
+  security_group_ids     = [module.networking.database_security_group_id]
+  
+  multi_az               = var.db_multi_az
+  backup_retention_period = var.db_backup_retention_period
+  backup_window          = var.db_backup_window
+  maintenance_window     = var.db_maintenance_window
+  
+  storage_encrypted      = var.enable_rds_encryption
+  monitoring_interval    = var.enable_rds_monitoring ? 60 : 0
+  
+  common_tags = local.common_tags
+}
