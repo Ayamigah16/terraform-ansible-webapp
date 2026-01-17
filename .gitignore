@@ -65,7 +65,8 @@ inventory-*.ini
 **/vars/fullstack.yml
 
 app
-*.md
+NGINX-STATUS.md
 *.sh
 */group_vars/
 ./app/*
+README-DEPLOYMENT.md
