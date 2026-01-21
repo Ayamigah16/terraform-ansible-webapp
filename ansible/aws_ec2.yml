@@ -32,26 +32,15 @@ keyed_groups:
 
 # Compose variables from instance attributes
 compose:
-  ansible_host: >
-    {% if 'frontend' in (tags.Role|lower) %}
-      {{ public_ip_address }}
-    {% else %}
-      {{ private_ip_address }}
-    {% endif %}
+  ansible_host: "{{ public_ip_address if 'frontend' in (tags.Role|lower) else private_ip_address }}"
+  # ansible_host: >
+  #   {% if 'frontend' in (tags.Role|lower) %}
+  #     {{ public_ip_address }}
+  #   {% else %}
+  #     {{ private_ip_address }}
+  #   {% endif %}
   ansible_user: ec2-user
   ansible_ssh_private_key_file: ./keys/terraform-ansible-webapp-key.pem
-  ansible_ssh_common_args: >-
-    {% if 'frontend' in (tags.Role|lower) %}
-      -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
-    {% else %}
-      -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ProxyCommand="ssh -i ./ansible/keys/terraform-ansible-webapp-key.pem -W %h:%p ec2-user@{{ hostvars[groups['role_frontend'][0]].ansible_host }}"
-    {% endif %}
-  ansible_rsync_extra_opts: >-
-    {% if 'backend' in (tags.Role|lower) %}
-      --rsh="ssh -i ./ansible/keys/terraform-ansible-webapp-key.pem -o ProxyCommand=ssh\ -i\ ./ansible/keys/terraform-ansible-webapp-key.pem\ -W\ %h:%p\ ec2-user@{{ hostvars[groups['role_frontend'][0]].ansible_host }}"
-    {% else %}
-      ""
-    {% endif %}
   instance_name: "{{ tags.Name | default('') }}"
   instance_role: "{{ tags.Role | default('') }}"
   environment: "{{ tags.Environment | default('') }}"
@@ -61,9 +50,10 @@ compose:
   public_ip: "{{ public_ip_address }}"
 
 # Hostnames - how to identify instances
-hostnames:
-- tag:Name
-- public-ip-address
+# hostnames:
+#   - public_ip_address
+#   - private_ip_address
+hostname_variable: public_ip_address
 
 # Use strict mode to catch errors
 strict: False
