@@ -31,6 +31,14 @@ resource "aws_instance" "web_server" {
   monitoring              = var.enable_monitoring
   associate_public_ip_address = var.associate_public_ip
 
+  # Enforce IMDSv2 for enhanced security
+  metadata_options {
+    http_endpoint               = "enabled"
+    http_tokens                 = "required"
+    http_put_response_hop_limit = 1
+    instance_metadata_tags      = "enabled"
+  }
+
   root_block_device {
     volume_size           = var.root_volume_size
     volume_type           = var.root_volume_type
@@ -53,7 +61,7 @@ resource "aws_instance" "web_server" {
 # Create Ansible inventory file
 resource "local_file" "ansible_inventory" {
   content = templatefile("${path.module}/templates/inventory.tpl", {
-    public_ip        = aws_instance.web_server.public_ip
+    public_ip = coalesce(aws_instance.web_server.public_ip, aws_instance.web_server.private_ip)
     ssh_user         = var.ssh_user
     private_key_path = var.private_key_path
     instance_name    = var.instance_name

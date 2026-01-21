@@ -1,41 +1,22 @@
 variable "vpc_id" {
-  description = "ID of the VPC where security group will be created"
+  description = "ID of the VPC where security groups will be created"
   type        = string
 }
 
-variable "security_group_name" {
-  description = "Name of the security group"
+variable "project" {
+  description = "Project name prefix for resources"
   type        = string
-}
-
-variable "security_group_description" {
-  description = "Description of the security group"
-  type        = string
-  default     = "Security group for web application"
 }
 
 variable "ssh_cidr_blocks" {
-  description = "CIDR blocks allowed for SSH access"
+  description = "CIDR blocks allowed to SSH into frontend/bastion"
   type        = list(string)
-  default     = ["0.0.0.0/0"]
-}
-
-variable "http_cidr_blocks" {
-  description = "CIDR blocks allowed for HTTP access"
-  type        = list(string)
-  default     = ["0.0.0.0/0"]
-}
-
-variable "https_cidr_blocks" {
-  description = "CIDR blocks allowed for HTTPS access"
-  type        = list(string)
-  default     = ["0.0.0.0/0"]
 }
 
 variable "enable_https" {
   description = "Enable HTTPS ingress rule"
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "common_tags" {

@@ -1,0 +1,23 @@
+# Full-Stack Application Variables
+# This file contains all variables needed for deployment
+
+# Database Configuration (from Terraform outputs)
+db_endpoint: "{{ lookup('pipe', 'cd ../terraform && terraform output -raw database_address') }}"
+db_port: 5432
+db_username: "dbadmin"
+db_password: "CHANGE_ME" # Set your database password here
+db_name: "appdb"
+
+# Project Configuration
+project_name: "terraform-ansible-webapp"
+
+# Backend Configuration
+backend_port: 3001
+app_dir_backend: "/home/ec2-user/backend"
+
+# Frontend Configuration
+frontend_port: 3000
+app_dir_frontend: "/home/ec2-user/frontend"
+
+# Backend host will be auto-discovered from inventory
+# backend_host: "{{ hostvars[groups['backend'][0]]['ansible_host'] }}"

@@ -86,7 +86,7 @@ variable "ssh_user" {
 variable "ssh_cidr_blocks" {
   description = "CIDR blocks allowed for SSH access"
   type        = list(string)
-  default     = ["0.0.0.0/0"]
+  default     = ["196.61.44.164/32"]
 }
 
 variable "http_cidr_blocks" {

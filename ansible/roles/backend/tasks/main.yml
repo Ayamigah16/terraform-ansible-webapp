@@ -76,15 +76,13 @@
     mode: '0755'
 
 - name: Copy backend application
-  synchronize:
+  become: yes
+  copy:
     src: "{{ playbook_dir }}/../apps/backend/"
     dest: "{{ app_dir }}/"
-    delete: no
-    recursive: yes
-    rsync_opts:
-      - "--exclude=node_modules"
-      - "--exclude=dist"
-      - "--exclude=.env"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0755'
   notify: Restart backend service
 
 - name: Create .env file from template
@@ -133,17 +131,13 @@
   shell: |
     . ~/.nvm/nvm.sh
     pm2 delete backend || true
-    # Export env vars and start PM2
-    set -a
-    source {{ app_dir }}/.env
-    set +a
-    pm2 start {{ app_dir }}/dist/main.js --name backend
+    # Load .env and pass variables to PM2
+    pm2 start {{ app_dir }}/dist/main.js --name backend --update-env --env production
     pm2 save
   args:
     chdir: "{{ app_dir }}"
     executable: /bin/bash
-  register: pm2_start
-  changed_when: "'online' in pm2_start.stdout or 'spawned' in pm2_start.stdout"
+
 
 - name: Ensure PM2 service is enabled and started
   become: yes

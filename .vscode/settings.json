@@ -1,0 +1,3 @@
+{
+    "ansible.python.interpreterPath": "/home/weirdo/dev/iac/terraform/terraform-ansible-webapp/venv/bin/python"
+}

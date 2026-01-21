@@ -1,5 +1,5 @@
 # AWS EC2 Dynamic Inventory Configuration
-plugin: aws_ec2
+plugin: amazon.aws.aws_ec2
 
 # AWS region(s) to query
 # IMPORTANT: Must match terraform/variables.tf aws_region default or your terraform.tfvars
@@ -10,8 +10,8 @@ regions:
 # IMPORTANT: Values must match terraform tags (Project and Environment from terraform/variables.tf)
 filters:
   instance-state-name: running
-  "tag:Project": terraform-ansible-webapp
-  "tag:Environment": dev
+  tag:Project: terraform-ansible-webapp
+  tag:Environment: dev
 
 # Keyed groups - organize hosts by tags
 keyed_groups:
@@ -32,15 +32,33 @@ keyed_groups:
 
 # Compose variables from instance attributes
 compose:
-  ansible_host: public_ip_address
-  ansible_user: "'ec2-user'"
-  instance_name: tags.Name
-  instance_role: tags.Role
-  environment: tags.Environment
-  project: tags.Project
-  managed_by: tags.ManagedBy
-  private_ip: private_ip_address
-  public_ip: public_ip_address
+  ansible_host: >
+    {% if 'frontend' in (tags.Role|lower) %}
+      {{ public_ip_address }}
+    {% else %}
+      {{ private_ip_address }}
+    {% endif %}
+  ansible_user: ec2-user
+  ansible_ssh_private_key_file: ./keys/terraform-ansible-webapp-key.pem
+  ansible_ssh_common_args: >-
+    {% if 'frontend' in (tags.Role|lower) %}
+      -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
+    {% else %}
+      -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ProxyCommand="ssh -i ./ansible/keys/terraform-ansible-webapp-key.pem -W %h:%p ec2-user@{{ hostvars[groups['role_frontend'][0]].ansible_host }}"
+    {% endif %}
+  ansible_rsync_extra_opts: >-
+    {% if 'backend' in (tags.Role|lower) %}
+      --rsh="ssh -i ./ansible/keys/terraform-ansible-webapp-key.pem -o ProxyCommand=ssh\ -i\ ./ansible/keys/terraform-ansible-webapp-key.pem\ -W\ %h:%p\ ec2-user@{{ hostvars[groups['role_frontend'][0]].ansible_host }}"
+    {% else %}
+      ""
+    {% endif %}
+  instance_name: "{{ tags.Name | default('') }}"
+  instance_role: "{{ tags.Role | default('') }}"
+  environment: "{{ tags.Environment | default('') }}"
+  project: "{{ tags.Project | default('') }}"
+  managed_by: "{{ tags.ManagedBy | default('') }}"
+  private_ip: "{{ private_ip_address }}"
+  public_ip: "{{ public_ip_address }}"
 
 # Hostnames - how to identify instances
 hostnames:

@@ -1,3 +1,16 @@
+
+# Generate Ansible inventory file for frontend/backend
+resource "local_file" "ansible_inventory" {
+  content = templatefile("${path.module}/templates/inventory.ini.tpl", {
+    frontend_ip = module.frontend.instance_public_ip
+    backend_ip = module.backend.instance_private_ip
+    ssh_user           = var.ssh_user
+    private_key_path   = module.keys.private_key_path
+    project_name       = var.project_name
+  })
+  filename = "${path.module}/../ansible/inventory.ini"
+}
+
 terraform {
   required_version = ">= 1.5.0"
 
@@ -75,44 +88,17 @@ module "keys" {
   )
 }
 
-# Module: Networking (Security Group)
 module "networking" {
-  source = "./modules/networking"
+  source = "./modules/networking"   # path to your refactored networking module
 
-  vpc_id                     = module.vpc.vpc_id
-  security_group_name        = "${var.project_name}-sg"
-  security_group_description = "Security group for ${var.project_name}"
-  ssh_cidr_blocks            = var.ssh_cidr_blocks
-  http_cidr_blocks           = var.http_cidr_blocks
-  https_cidr_blocks          = var.https_cidr_blocks
-  enable_https               = var.enable_https
-
-  common_tags = local.common_tags
-}
-
-# Module: Compute (EC2 Instance)
-module "compute" {
-  source = "./modules/compute"
-
-  subnet_id            = module.vpc.public_subnet_ids[0]
-  instance_name        = "${var.project_name}-ec2"
-  instance_type        = var.instance_type
-  instance_role        = "web"
-  environment          = "web_dev"
-  key_pair_name        = module.keys.key_pair_name
-  security_group_ids   = [module.networking.security_group_id]
-  
-  associate_public_ip  = true
-  enable_monitoring    = var.enable_detailed_monitoring
-  root_volume_size     = var.root_volume_size
-  root_volume_type     = var.root_volume_type
-  enable_encryption    = var.enable_ebs_encryption
-  
-  ssh_user             = var.ssh_user
-  private_key_path     = module.keys.private_key_path
-  inventory_file_path  = "${path.module}/../ansible/inventory.ini"
-
-  common_tags = local.common_tags
+  vpc_id         = module.vpc.vpc_id   # or however you define your VPC
+  project        = var.project_name  # maps your existing project_name variable
+  ssh_cidr_blocks = var.ssh_cidr_blocks
+  enable_https   = var.enable_https
+  common_tags    = {
+    Environment = var.environment
+    ManagedBy   = var.managed_by
+  }
 }
 
 # Module: Frontend Instance (Next.js)
@@ -125,7 +111,7 @@ module "frontend" {
   instance_role        = "frontend"
   environment          = var.environment
   key_pair_name        = module.keys.key_pair_name
-  security_group_ids   = [module.networking.frontend_security_group_id]
+  security_group_ids   = [module.networking.frontend_sg_id]
   
   associate_public_ip  = true
   enable_monitoring    = var.enable_detailed_monitoring
@@ -140,19 +126,19 @@ module "frontend" {
   common_tags = local.common_tags
 }
 
-# Module: Backend Instance (NestJS)
+# Module: Backend Instance (NestJS) - Private Subnet
 module "backend" {
   source = "./modules/compute"
 
-  subnet_id            = module.vpc.public_subnet_ids[1]
+  subnet_id            = module.vpc.private_subnet_ids[0]
   instance_name        = "${var.project_name}-backend"
   instance_type        = var.instance_type
   instance_role        = "backend"
   environment          = var.environment
   key_pair_name        = module.keys.key_pair_name
-  security_group_ids   = [module.networking.backend_security_group_id]
+  security_group_ids   = [module.networking.backend_sg_id]
   
-  associate_public_ip  = true
+  associate_public_ip  = false
   enable_monitoring    = var.enable_detailed_monitoring
   root_volume_size     = var.root_volume_size
   root_volume_type     = var.root_volume_type
@@ -177,7 +163,7 @@ module "database" {
   allocated_storage      = var.db_allocated_storage
   
   subnet_ids             = module.vpc.private_subnet_ids
-  security_group_ids     = [module.networking.database_security_group_id]
+  security_group_ids     = [module.networking.database_sg_id]
   
   multi_az               = var.db_multi_az
   backup_retention_period = var.db_backup_retention_period

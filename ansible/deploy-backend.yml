@@ -2,18 +2,17 @@
   hosts: role_backend
   become: no
 
-  vars:
-    project_name: "{{ project_name | default('webapp') }}"
-    app_dir: "/home/{{ ansible_user }}/backend"
-    backend_port: 3001
+  # vars:
+  #   project_name: "{{ project_name | default('webapp') }}"
+  #   app_dir: "/home/{{ ansible_user }}/backend"
+  #   backend_port: 3001
     # Database configuration - pass these via -e flags or group_vars
     # db_endpoint should be: terraform output -raw database_address
     # db_password should be: your RDS password
-    database_host: "{{ db_endpoint | default('localhost') }}"
-    database_port: 5432
-    database_username: "{{ db_username | default('dbadmin') }}"
-    database_password: "{{ db_password }}"
-    database_name: "{{ db_name | default('notesdb') }}"
-
+    # database_host: "{{ database_host }}"
+    # database_port: 5432
+    # database_username: "{{ database_username }}"
+    # database_password: "{{ database_password }}"
+    # database_name: "{{ database_name }}"
   roles:
   - role: backend

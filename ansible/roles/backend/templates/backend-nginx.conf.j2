@@ -1,3 +1,7 @@
+# Rate limiting zones
+limit_req_zone $binary_remote_addr zone=backend_api:10m rate=10r/s;
+limit_req_status 429;
+
 server {
     listen 80;
     server_name _;
@@ -16,6 +20,8 @@ server {
 
     # Proxy to NestJS application
     location / {
+        limit_req zone=backend_api burst=20 nodelay;
+        
         proxy_pass http://127.0.0.1:3001;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
