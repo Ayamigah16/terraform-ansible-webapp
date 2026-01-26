@@ -9,34 +9,45 @@ Automated deployment of a three-tier **Notes Application** on AWS using Terrafor
 **Architecture:**
 
 ```bash
-┌────────────────────────────────────────────────────────────────┐
-│              Custom VPC (10.0.0.0/16)                          │
-│                                                                │
-│  Public Subnets                    Private Subnets            │
-│  ┌─────────────────┐               ┌─────────────┐           │
-│  │   Frontend      │               │ PostgreSQL  │           │
-│  │   EC2 Instance  │──────┐        │     RDS     │           │
-│  │                 │      │        │  Port 5432  │           │
-│  │  Nginx :80 ─────┼──┐   │        └─────────────┘           │
-│  │    ↓            │  │   │                ↑                  │
-│  │  Next.js :3000  │  │   │                │                  │
-│  └─────────────────┘  │   │                │                  │
-│                       │   ↓                │                  │
-│  ┌─────────────────┐  │  ┌───────────────┐│                  │
-│  │   Backend       │←─┘  │   Backend     ││                  │
-│  │   EC2 Instance  │     │   API         ││                  │
-│  │                 │     │               ││                  │
-│  │  Nginx :80 ─────┼──┐  └───────────────┘│                  │
-│  │    ↓            │  │                   │                  │
-│  │  NestJS :3001 ──┼──┼───────────────────┘                  │
-│  └─────────────────┘  │                                      │
-│                       └─► Public Access via Nginx            │
-└────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                        Custom VPC (10.0.0.0/16)                            │
+│                                                                             │
+│  Public Subnets                      Private Subnets                        │
+│  ┌─────────────────┐                 ┌─────────────┐                        │
+│  │   Frontend      │                 │ PostgreSQL  │                        │
+│  │   EC2 Instance  │──────┐          │     RDS     │                        │
+│  │                 │      │          │  Port 5432  │                        │
+│  │  Nginx :80 ─────┼──┐   │          └─────────────┘                        │
+│  │    ↓            │  │   │                  ↑                              │
+│  │  Next.js :3000  │  │   │                  │                              │
+│  │  SSH Bastion    │  │   │                  │                              │
+│  └─────────────────┘  │   │                  │                              │
+│                       │   ↓                  │                              │
+│  ┌─────────────────┐  │  ┌───────────────┐   │                              │
+│  │   Backend       │←─┘  │   Backend     │   │                              │
+│  │   EC2 Instance  │     │   API         │   │                              │
+│  │                 │     │               │   │                              │
+│  │  Nginx :80 ─────┼──┐  └───────────────┘   │                              │
+│  │    ↓            │  │                     │                              │
+│  │  NestJS :3001 ──┼──┼─────────────────────┘                              │
+│  └─────────────────┘  │                                                    │
+│                       └─► Internal API only (no public backend access)      │
+│                                                                             │
+│  🔒 Security Features:                                                      │
+│    - Backend in private subnet (no public IP)                               │
+│    - Frontend acts as SSH bastion for backend                               │
+│    - Nginx rate limiting (DDoS protection)                                  │
+│    - SSH restricted to your IP only                                         │
+│    - Secrets managed with Ansible Vault                                     │
+│    - IMDSv2 enabled on all EC2 instances                                    │
+│    - Security groups: least privilege, no public backend API                │
+└─────────────────────────────────────────────────────────────────────────────┘
 
 External Access:
 • Frontend: http://<frontend-ip> (Nginx → Next.js:3000)
-• Backend API: http://<backend-ip> (Nginx → NestJS:3001)
+• Backend API: http://<frontend-ip>/api (Nginx proxy to backend, internal only)
 • Database: Private access only (RDS in private subnet)
+• SSH: Only from your IP, via frontend (bastion)
 ```
 
 ### Infrastructure & DevOps Features

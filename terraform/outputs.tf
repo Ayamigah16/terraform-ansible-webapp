@@ -41,40 +41,50 @@ output "project_name" {
   value       = var.project_name
 }
 
-output "public_ip" {
-  description = "Public IP address of the EC2 instance"
-  value       = module.compute.instance_public_ip
-}
+# output "public_ip" {
+#   description = "Public IP address of the EC2 instance"
+#   value       = module.compute.instance_public_ip
+# }
 
-output "public_dns" {
-  description = "Public DNS name of the EC2 instance"
-  value       = module.compute.instance_public_dns
-}
+# output "public_dns" {
+#   description = "Public DNS name of the EC2 instance"
+#   value       = module.compute.instance_public_dns
+# }
 
 output "ssh_user" {
   description = "SSH username for Amazon Linux 2"
   value       = var.ssh_user
 }
 
-output "instance_id" {
-  description = "ID of the EC2 instance"
-  value       = module.compute.instance_id
+# output "instance_id" {
+#   description = "ID of the EC2 instance"
+#   value       = module.compute.instance_id
+# }
+
+output "frontend_security_group_id" {
+  description = "Frontend security group ID"
+  value       = module.networking.frontend_sg_id
 }
 
-output "security_group_id" {
-  description = "ID of the security group"
-  value       = module.networking.security_group_id
+output "backend_security_group_id" {
+  description = "Backend security group ID"
+  value       = module.networking.backend_sg_id
 }
 
-output "ssh_command" {
-  description = "SSH command to connect to the instance"
-  value       = "ssh -i ${module.keys.private_key_path} ${var.ssh_user}@${module.compute.instance_public_ip}"
+output "database_security_group_id" {
+  description = "Database security group ID"
+  value       = module.networking.database_sg_id
 }
 
-output "web_url" {
-  description = "URL to access the web application"
-  value       = "http://${module.compute.instance_public_ip}"
-}
+# output "ssh_command" {
+#   description = "SSH command to connect to the instance"
+#   value       = "ssh -i ${module.keys.private_key_path} ${var.ssh_user}@${module.compute.instance_public_ip}"
+# }
+
+# output "web_url" {
+#   description = "URL to access the web application"
+#   value       = "http://${module.compute.instance_public_ip}"
+# }
 
 # Frontend Outputs
 output "frontend_public_ip" {
@@ -89,13 +99,26 @@ output "frontend_instance_id" {
 
 output "frontend_url" {
   description = "URL to access the Next.js frontend"
-  value       = "http://${module.frontend.instance_public_ip}:3000"
+  value       = "http://${module.frontend.instance_public_ip}"
 }
 
 # Backend Outputs
 output "backend_public_ip" {
-  description = "Public IP address of the backend server"
+  description = "Public IP address of the backend server (null if private)"
   value       = module.backend.instance_public_ip
+}
+
+# Debug: Frontend subnet and route table
+
+# Debug: Frontend subnet and route table
+output "frontend_subnet_id" {
+  description = "Subnet ID of the frontend instance"
+  value       = module.vpc.public_subnet_ids[0]
+}
+
+output "frontend_route_table_id" {
+  description = "Route table ID associated with the frontend subnet"
+  value       = module.vpc.public_route_table_id
 }
 
 output "backend_private_ip" {
@@ -109,8 +132,8 @@ output "backend_instance_id" {
 }
 
 output "backend_api_url" {
-  description = "URL to access the NestJS API"
-  value       = "http://${module.backend.instance_public_ip}:3001"
+  description = "Internal backend API URL (accessible via frontend proxy)"
+  value       = "http://${module.backend.instance_private_ip}:3001"
 }
 
 # Database Outputs
