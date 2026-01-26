@@ -1,0 +1,24 @@
+module.exports = {
+  apps: [{
+    name: 'backend',
+    script: './dist/main.js',
+    cwd: '{{ app_dir }}',
+    instances: 1,
+    exec_mode: 'fork',
+    env: {
+      NODE_ENV: 'production',
+      PORT: {{ backend_port }},
+      DB_HOST: '{{ db_host }}',
+      DB_PORT: {{ db_port }},
+      DB_USERNAME: '{{ db_username }}',
+      DB_PASSWORD: '{{ db_password }}',
+      DB_NAME: '{{ db_name }}'
+    },
+    env_file: '{{ app_dir }}/.env',
+    log_file: '~/.pm2/logs/backend.log',
+    error_file: '~/.pm2/logs/backend-error.log',
+    out_file: '~/.pm2/logs/backend-out.log',
+    merge_logs: true,
+    time: true
+  }]
+};

@@ -127,13 +127,22 @@
     creates: /etc/systemd/system/pm2-ec2-user.service
     executable: /bin/bash
 
-- name: Start application with PM2
+- name: Create PM2 ecosystem file for frontend
+  template:
+    src: ecosystem.config.js.j2
+    dest: "{{ app_dir }}/ecosystem.config.js"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0644'
+  notify: Restart frontend service
+
+- name: Start application with PM2 using ecosystem file
   become: yes
   become_user: ec2-user
   shell: |
     . ~/.nvm/nvm.sh
     pm2 delete frontend || true
-    pm2 start npm --name frontend -- start
+    pm2 start {{ app_dir }}/ecosystem.config.js
     pm2 save
   args:
     chdir: "{{ app_dir }}"

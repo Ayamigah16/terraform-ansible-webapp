@@ -1,0 +1,21 @@
+module.exports = {
+  apps: [{
+    name: 'frontend',
+    script: 'npm',
+    args: 'start',
+    cwd: '{{ app_dir }}',
+    instances: 1,
+    exec_mode: 'fork',
+    env: {
+      NODE_ENV: 'production',
+      PORT: {{ frontend_port }},
+      NEXT_PUBLIC_API_URL: 'http://{{ hostvars[groups["role_backend"][0]]["ansible_default_ipv4"]["address"] if groups["role_backend"] is defined else "localhost" }}:{{ backend_port }}'
+    },
+    env_file: '{{ app_dir }}/.env.local',
+    log_file: '~/.pm2/logs/frontend.log',
+    error_file: '~/.pm2/logs/frontend-error.log',
+    out_file: '~/.pm2/logs/frontend-out.log',
+    merge_logs: true,
+    time: true
+  }]
+};

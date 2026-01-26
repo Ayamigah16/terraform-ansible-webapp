@@ -1,0 +1,9 @@
+[role_frontend]
+3.254.75.195 ansible_user=ec2-user ansible_ssh_private_key_file=./../ansible/keys/terraform-ansible-webapp-key.pem ansible_ssh_common_args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
+
+[role_backend]
+10.0.10.124 ansible_user=ec2-user ansible_ssh_private_key_file=./../ansible/keys/terraform-ansible-webapp-key.pem ansible_ssh_common_args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ProxyJump=ec2-user@3.254.75.195'
+
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3
+project_name=terraform-ansible-webapp
