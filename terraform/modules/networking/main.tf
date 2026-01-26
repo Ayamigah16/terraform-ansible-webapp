@@ -84,8 +84,9 @@ resource "aws_security_group_rule" "backend_api_from_frontend" {
   security_group_id        = aws_security_group.backend.id
 }
 
-# Optional HTTP from frontend (nginx proxy)
+# HTTP from frontend (nginx proxy) - conditional to avoid duplicates
 resource "aws_security_group_rule" "backend_http_from_frontend" {
+  count                    = var.enable_backend_http ? 1 : 0
   type                     = "ingress"
   from_port                = 80
   to_port                  = 80

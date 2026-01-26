@@ -19,6 +19,12 @@ variable "enable_https" {
   default     = true
 }
 
+variable "enable_backend_http" {
+  description = "Enable HTTP ingress rule for backend"
+  type        = bool
+  default     = false
+}
+
 variable "common_tags" {
   description = "Common tags to apply to all resources"
   type        = map(string)

@@ -64,7 +64,7 @@ inventory-*.ini
 # Environment files with secrets
 **/vars/fullstack.yml
 
-app
+
 NGINX-STATUS.md
 *.sh
 */group_vars/
